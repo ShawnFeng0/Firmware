@@ -107,10 +107,8 @@ int uORB::DeviceMaster::advertise(const struct orb_metadata *meta, bool is_adver
 		 * - The node is not advertised (yet). It means there is already one or more subscribers or it was
 		 *   unadvertised.
 		 * - We are a single-instance advertiser requesting the first instance.
-		 *   (Usually we don't end up here, but we might in case of a race condition between 2
-		 *   advertisers).
 		 * - We are a subscriber requesting a certain instance.
-		 *   (Also we usually don't end up in that case, but we might in case of a race condtion
+		 *   (we usually don't end up in that case, but we might in case of a race condtion
 		 *   between an advertiser and subscriber).
 		 */
 		bool is_single_instance_advertiser = is_advertiser && !instance;
@@ -148,7 +146,6 @@ int uORB::DeviceMaster::advertise(const struct orb_metadata *meta, bool is_adver
 				return -ENOMEM;
 			}
 
-			/* initialise the node - this may fail if e.g. a node with this name already exists */
 			ret = node->init();
 
 			/* if init failed, discard the node and its name */
